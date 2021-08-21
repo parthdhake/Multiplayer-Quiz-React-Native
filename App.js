@@ -1,40 +1,35 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { Card, Header } from "react-native-elements";
-import { StyleSheet, Text, View, Image, Title } from "react-native";
+import { StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import Profile from "./src/Components/Profile";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import Home from "./src/Components/Home/Home";
+
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      {/* <Header /> */}
-      <Card containerStyle={{}} wrapperStyle={{}}>
-        <Card.Title>CARD WITH DIVIDER</Card.Title>
-        <Card.Divider />
-        <View
-          style={{
-            position: "relative",
-            alignItems: "center",
-          }}
-        >
-          <Image
-            style={{ width: "100%", height: 100 }}
-            resizeMode="contain"
-            source={{
-              uri: "https://avatars0.githubusercontent.com/u/32242596?s=460&u=1ea285743fc4b083f95d6ee0be2e7bb8dcfc676e&v=4",
-            }}
-          />
-          <Text>Pranshu Chittora</Text>
-        </View>
-      </Card>
-    </View>
+    <NavigationContainer>
+      <Drawer.Navigator
+        screenOptions={{
+          drawerIcon: ({ focused, size }) => (
+            <Ionicons
+              name="md-home"
+              size={size}
+              color={focused ? "#7cc" : "#ccc"}
+            />
+          ),
+        }}
+        initialRouteName="Home"
+      >
+        <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen
+          name="Profile"
+          component={Profile}
+          options={{ title: "Profile" }}
+        />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
