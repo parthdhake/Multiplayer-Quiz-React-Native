@@ -1,11 +1,43 @@
 import React from "react";
 import { Card } from "react-native-elements";
-import { Text, View, Image, Button, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import firebase from "../../utils/firebase";
+import { useSelector, useDispatch } from "react-redux";
+import { setUserDetails } from "../../store/userSlice";
 
 const Home = (props) => {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   React.useLayoutEffect(() => {
     props.navigation.setOptions({
-      headerRight: () => <Button title="Update count" />,
+      headerRight: () => (
+        <View style={styles.button}>
+          <Ionicons
+            onPress={() => props.navigation.navigate("Profile")}
+            name="person-circle"
+            size={40}
+            color={"#000"}
+          />
+          <Ionicons
+            onPress={() => {
+              firebase.auth().signOut();
+              dispatch(setUserDetails({ name: "", email: "", userID: "" }));
+            }}
+            name="log-out"
+            size={40}
+            color={"#000"}
+          />
+        </View>
+      ),
     });
   }, [props.navigation]);
   return (
@@ -49,6 +81,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  button: {
+    display: "flex",
+    flexDirection: "row",
+    color: "#648459",
+    marginRight: 10,
   },
 });
 

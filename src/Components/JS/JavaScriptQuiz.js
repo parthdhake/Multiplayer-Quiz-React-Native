@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-export default function Play() {
+export default function JavaScriptQuiz() {
   return (
     <View>
-      <Text>Play</Text>
+      <Text>JavaScriptQuiz</Text>
     </View>
   );
 }

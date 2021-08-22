@@ -1,12 +1,13 @@
-import React, { Component } from "react";
-import { View, Text, Button } from "react-native";
-// import { TabNavigator } from "r@react-navigation/native";
+import React from "react";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Play from "./Play";
-import Practice from "./Practice";
+import Play from "./UserProfile";
+import Practice from "./BattleHistory";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Tab = createBottomTabNavigator();
+
+const myIcon = <Icon name="rocket" size={30} color="#900" />;
 
 export default function Profile(props) {
   return (
@@ -15,14 +16,26 @@ export default function Profile(props) {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === "Play") {
-            iconName = focused ? "play-circle" : "play-circle-outline";
-          } else if (route.name === "Practice") {
-            iconName = focused ? "ios-list-box" : "ios-list";
+          if (route.name === "User Profile") {
+            iconName = focused
+              ? (iconName = (
+                  <Ionicons name={"person-circle"} size={size} color={color} />
+                ))
+              : (iconName = (
+                  <Ionicons
+                    name={"person-circle-outline"}
+                    size={size}
+                    color={color}
+                  />
+                ));
+          } else if (route.name === "Battle History") {
+            iconName = focused
+              ? (iconName = <Icon name="history" size={size} color={color} />)
+              : (iconName = <Icon name="history" size={size} color={color} />);
           }
 
           // You can return any component that you like here!
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return iconName;
         },
         tabBarActiveTintColor: "tomato",
         tabBarInactiveTintColor: "gray",
@@ -30,8 +43,8 @@ export default function Profile(props) {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Play" component={Play} />
-      <Tab.Screen name="Practice" component={Practice} />
+      <Tab.Screen name="User Profile" component={Play} />
+      <Tab.Screen name="Battle History" component={Practice} />
     </Tab.Navigator>
   );
 }
